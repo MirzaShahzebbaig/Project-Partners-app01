@@ -45,7 +45,7 @@ export default function App() {
   return (
     <AuthProvider>
       <Router
-        basename={import.meta.env.BASE_URL>
+        basename={import.meta.env.BASE_URL}>
         <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
           <Navbar />
           <main style={{ flex: 1 }}>
