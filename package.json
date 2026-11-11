@@ -1,0 +1,17 @@
+{
+  "name": "projectpartner",
+  "version": "1.0.0",
+  "description": "Smart Student–Mentor Project Collaboration Platform",
+  "type": "module",
+  "scripts": {
+    "dev": "node start.js",
+    "start": "node start.js",
+    "server": "node server/server.js",
+    "client": "node client/node_modules/vite/bin/vite.js",
+    "serve": "node server/server.js",
+    "build": "cd client && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

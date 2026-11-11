@@ -1,0 +1,13 @@
+{
+  "appId": "com.projectpartner.app",
+  "appName": "ProjectPartner",
+  "webDir": "dist",
+  "backgroundColor": "#090d16",
+  "server": {
+    "androidScheme": "http",
+    "cleartext": true
+  },
+  "android": {
+    "allowMixedContent": true
+  }
+}

@@ -1,0 +1,52 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+    inputs:
+      api_base:
+        description: "Optional default backend URL baked into the app (e.g. https://myapp.onrender.com). Leave empty to type it in the app."
+        required: false
+        default: ""
+  push:
+    branches: [main, master]
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build web app
+        env:
+          VITE_API_BASE: ${{ github.event.inputs.api_base }}
+        run: npm run build
+
+      - name: Create Android project
+        run: |
+          npx cap add android
+          npx cap sync android
+          node scripts/patch-android.mjs
+
+      - name: Build debug APK
+        working-directory: client/android
+        run: ./gradlew assembleDebug
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ProjectPartner-APK
+          path: client/android/app/build/outputs/apk/debug/app-debug.apk
